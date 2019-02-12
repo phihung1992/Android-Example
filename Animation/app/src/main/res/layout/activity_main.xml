@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue_grey_900">
+
+    <TextView
+        android:id="@+id/tv_hi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="15dp"
+        android:text="@string/hi"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/iv_card_1"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_above="@+id/tv_hi"
+        android:layout_toLeftOf="@+id/tv_hi"
+        android:rotation="50"
+        android:src="@drawable/joker_card"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/iv_card_2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_above="@+id/tv_hi"
+        android:layout_toRightOf="@+id/tv_hi"
+        android:rotation="-50"
+        android:src="@drawable/joker_card"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/iv_card_3"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/tv_hi"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:rotation="90"
+        android:src="@drawable/joker_card"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/iv_card_4"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="160dp"
+        android:src="@drawable/joker_card"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/iv_card_5"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_alignBottom="@id/iv_card_4"
+        android:layout_marginTop="150dp"
+        android:layout_toLeftOf="@id/iv_card_4"
+        android:src="@drawable/joker_card"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/iv_card_6"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_alignBottom="@id/iv_card_4"
+        android:layout_marginTop="150dp"
+        android:layout_toRightOf="@id/iv_card_4"
+        android:src="@drawable/joker_card"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/tv_ready"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_card_4"
+        android:layout_centerInParent="true"
+        android:layout_margin="25dp"
+        android:gravity="center"
+        android:text="@string/ready"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_2"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/tv_pray"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:gravity="center"
+        android:text="@string/result"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_2"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/tv_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_pray"
+        android:gravity="center"
+        android:text="@string/pray"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_2"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/iv_card_7"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="150dp"
+        android:src="@drawable/joker_card"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/iv_card_8"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_above="@+id/iv_card_7"
+        android:layout_toLeftOf="@+id/iv_card_7"
+        android:src="@drawable/joker_card"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/iv_card_9"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/iv_card_8"
+        android:layout_marginTop="100dp"
+        android:layout_toRightOf="@id/iv_card_7"
+        android:src="@drawable/joker_card"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/iv_card_queen"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_above="@+id/iv_card_7"
+        android:layout_toLeftOf="@+id/iv_card_7"
+        android:src="@drawable/queen_card"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/iv_card_king"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_above="@+id/iv_card_7"
+        android:layout_toRightOf="@+id/iv_card_queen"
+        android:src="@drawable/king_card"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/iv_card_jack"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_above="@+id/iv_card_7"
+        android:layout_toRightOf="@+id/iv_card_king"
+        android:src="@drawable/jack_card"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/btn_predict"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_card_king"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:background="@color/white"
+        android:text="Bói Quẻ"
+        android:textStyle="bold"
+        android:visibility="invisible" />
+
+</RelativeLayout>
