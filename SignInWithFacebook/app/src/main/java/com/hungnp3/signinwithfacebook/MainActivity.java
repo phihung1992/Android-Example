@@ -52,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
 //        } catch (Exception e) {
 //
 //        }
+
+
+//            keytool -exportcert -alias key0 -keystore debug_key.jks | C:\openssl\bin\openssl sha1 -binary | C:\openssl\bin\openssl base64
+            
             initView();
         } else {
             Intent intent = new Intent(MainActivity.this, InfoActivitiy.class);
