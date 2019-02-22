@@ -70,42 +70,14 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess(LoginResult loginResult) {
                 Log.d("MY_LOG", "onSuccess");
 
-                GraphRequest request = GraphRequest.newMeRequest(
-                        loginResult.getAccessToken(),
-                        new GraphRequest.GraphJSONObjectCallback() {
-                            @Override
-                            public void onCompleted(JSONObject object, GraphResponse response) {
-//                                // Application code
-                                try {
-                                    Log.v("MY_LOG", "object: " + object.toString());
+                Intent intent = new Intent(MainActivity.this, InfoActivitiy.class);
 
-                                    String id = object.getString("id");
-                                    String email = object.getString("email");
-                                    String name = object.getString("name");
-                                    String birthday = object.getString("birthday");
-                                    Log.v("MY_LOG", "id: " + id);
-
-//                                    FacebookInfo facebookInfo = new FacebookInfo(id, name,
-//                                            birthday, email);
-
-                                    Intent intent = new Intent(MainActivity.this, InfoActivitiy.class);
-
-                                    intent.putExtra("id", id);
-                                    intent.putExtra("name", name);
-                                    intent.putExtra("birthday", birthday);
-                                    intent.putExtra("email", email);
-                                    startActivity(intent);
-                                    finish();
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-
-                            }
-                        });
-                Bundle parameters = new Bundle();
-                parameters.putString("fields", "name,email,birthday");
-                request.setParameters(parameters);
-                request.executeAsync();
+//                intent.putExtra("id", id);
+//                intent.putExtra("name", name);
+//                intent.putExtra("birthday", birthday);
+//                intent.putExtra("email", email);
+                startActivity(intent);
+                finish();
             }
 
             @Override

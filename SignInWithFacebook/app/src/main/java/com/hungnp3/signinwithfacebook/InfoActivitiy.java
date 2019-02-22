@@ -7,10 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.facebook.login.widget.LoginButton;
 import com.facebook.login.widget.ProfilePictureView;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -32,32 +30,32 @@ public class InfoActivitiy extends AppCompatActivity {
         tvBirthday = (TextView) findViewById(R.id.tv_birthday);
         tvEmail = (TextView) findViewById(R.id.tv_email);
 
-        Intent intent = getIntent();
-        if (intent == null) return;
+//        Intent intent = getIntent();
+//        if (intent == null) return;
 
-        String id = intent.getStringExtra("id");
-        String email = intent.getStringExtra("email");
-        String name = intent.getStringExtra("name");
-        String birthday = intent.getStringExtra("birthday");
+        FacebookManager.getInstance().loadLoginInfo(new FacebookManager.OnLoadInfoCallBack() {
+            @Override
+            public void onCompleted() {
+                FacebookInfo facebookInfo = FacebookManager.getInstance().getLoginInfo();
 
-        if (birthday != null) {
-            try {
-                Date date = new SimpleDateFormat("MM/dd/yyyy").parse(birthday);
-                birthday = new SimpleDateFormat("dd/MM/yyyy").format(date);
-            } catch (ParseException e) {
-                e.printStackTrace();
+                String id = facebookInfo.getId();
+                String email = facebookInfo.getEmail();
+                String name = facebookInfo.getName();
+                String birthday = facebookInfo.getDateOfBirth();
+
+                tvBirthday.setText(birthday);
+                tvName.setText(name);
+                tvEmail.setText(email);
+
+                Log.v("MY_LOG", "idid: " + id);
+                Log.v("MY_LOG", "email: " + email);
+                Log.v("MY_LOG", "name: " + name);
+                Log.v("MY_LOG", "birthday: " + birthday);
+
+                ppvAvatar.setProfileId(id);
             }
-        }
+        });
 
-        tvBirthday.setText(birthday);
-        tvName.setText(name);
-        tvEmail.setText(email);
 
-        Log.v("MY_LOG", "idid: " + id);
-        Log.v("MY_LOG", "email: " + email);
-        Log.v("MY_LOG", "name: " + name);
-        Log.v("MY_LOG", "birthday: " + birthday);
-
-        ppvAvatar.setProfileId(id);
     }
 }
