@@ -48,19 +48,37 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:orientation="vertical"
         android:padding="8dp">
 
-        <Button
-            android:id="@+id/btn_share_link"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Share Link" />
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btn_share_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Share Image" />
+            <Button
+                android:id="@+id/btn_share_link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Share Link" />
+
+            <Button
+                android:id="@+id/btn_share_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Share Image From Res" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btn_share_gallery_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Share Image From Gallery" />
+        </LinearLayout>
     </LinearLayout>
 
 

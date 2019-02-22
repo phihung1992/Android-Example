@@ -21,10 +21,13 @@ import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.widget.ShareDialog;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 public class InfoActivitiy extends AppCompatActivity implements View.OnClickListener {
+    private static final int SELECT_IMAGE = 0;
     private ProfilePictureView ppvAvatar;
     private TextView tvName, tvBirthday, tvEmail;
     private LoginButton btnLogout;
@@ -48,6 +51,7 @@ public class InfoActivitiy extends AppCompatActivity implements View.OnClickList
 
         findViewById(R.id.btn_share_link).setOnClickListener(this);
         findViewById(R.id.btn_share_img).setOnClickListener(this);
+        findViewById(R.id.btn_share_gallery_img).setOnClickListener(this);
 
         FacebookManager.getInstance().loadLoginInfo(new FacebookManager.OnLoadInfoCallBack() {
             @Override
@@ -98,15 +102,42 @@ public class InfoActivitiy extends AppCompatActivity implements View.OnClickList
             case R.id.btn_share_img:
                 shareImage();
                 break;
+            case R.id.btn_share_gallery_img:
+                shareGalleryImage();
+                break;
         }
+    }
+
+    private void shareGalleryImage() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, SELECT_IMAGE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == SELECT_IMAGE && resultCode == RESULT_OK) {
+            try {
+                InputStream inputStream = getContentResolver().openInputStream(data.getData());
+                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+
+                SharePhoto photo = new SharePhoto.Builder()
+                        .setBitmap(bitmap)
+                        .build();
+                SharePhotoContent sharePhotoContent = new SharePhotoContent.Builder()
+                        .addPhoto(photo)
+                        .build();
+                shareDialog.show(sharePhotoContent);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void shareImage() {
         // Image from resource
         Bitmap image = BitmapFactory.decodeResource(getResources(), R.drawable.test_img);
-        //
-
-        
         SharePhoto photo = new SharePhoto.Builder()
                 .setBitmap(image)
                 .build();
@@ -118,7 +149,6 @@ public class InfoActivitiy extends AppCompatActivity implements View.OnClickList
         listPhotos.add(photo);
         listPhotos.add(photo);
         SharePhotoContent sharePhotoContent = new SharePhotoContent.Builder()
-//                .addPhoto(photo)
                 .addPhotos(listPhotos)
                 .build();
         shareDialog.show(sharePhotoContent);
