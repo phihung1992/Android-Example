@@ -7,15 +7,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
+import com.facebook.login.widget.LoginButton;
 import com.facebook.login.widget.ProfilePictureView;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class InfoActivitiy extends AppCompatActivity {
     private ProfilePictureView ppvAvatar;
     private TextView tvName, tvBirthday, tvEmail;
+    private LoginButton btnLogout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,12 +26,9 @@ public class InfoActivitiy extends AppCompatActivity {
 
     private void initView() {
         ppvAvatar = findViewById(R.id.ppv_avatar);
-        tvName = (TextView) findViewById(R.id.tv_user_name);
-        tvBirthday = (TextView) findViewById(R.id.tv_birthday);
-        tvEmail = (TextView) findViewById(R.id.tv_email);
-
-//        Intent intent = getIntent();
-//        if (intent == null) return;
+        tvName = findViewById(R.id.tv_user_name);
+        tvBirthday = findViewById(R.id.tv_birthday);
+        tvEmail = findViewById(R.id.tv_email);
 
         FacebookManager.getInstance().loadLoginInfo(new FacebookManager.OnLoadInfoCallBack() {
             @Override
@@ -57,5 +54,21 @@ public class InfoActivitiy extends AppCompatActivity {
         });
 
 
+        AccessTokenTracker accessTokenTracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(AccessToken accessToken, AccessToken accessToken2) {
+                Log.d("MY_LOG", "onCurrentAccessTokenChanged()");
+                Log.d("MY_LOG", "accessToken: " + accessToken);
+                Log.d("MY_LOG", "accessToken2: " + accessToken2);
+                if (accessToken == null) {
+                    // Log in Logic
+                } else if (accessToken2 == null) {
+                    // Log out logic
+                    startActivity(new Intent(InfoActivitiy.this, MainActivity.class));
+                    finish();
+                }
+            }
+        };
+        accessTokenTracker.startTracking();
     }
 }
