@@ -19,6 +19,8 @@ import com.facebook.login.widget.ProfilePictureView;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
+import com.facebook.share.model.ShareVideo;
+import com.facebook.share.model.ShareVideoContent;
 import com.facebook.share.widget.ShareDialog;
 
 import java.io.FileNotFoundException;
@@ -28,6 +30,7 @@ import java.util.List;
 
 public class InfoActivitiy extends AppCompatActivity implements View.OnClickListener {
     private static final int SELECT_IMAGE = 0;
+    private static final int SELECT_VIDEO = 1;
     private ProfilePictureView ppvAvatar;
     private TextView tvName, tvBirthday, tvEmail;
     private LoginButton btnLogout;
@@ -52,6 +55,7 @@ public class InfoActivitiy extends AppCompatActivity implements View.OnClickList
         findViewById(R.id.btn_share_link).setOnClickListener(this);
         findViewById(R.id.btn_share_img).setOnClickListener(this);
         findViewById(R.id.btn_share_gallery_img).setOnClickListener(this);
+        findViewById(R.id.btn_share_video).setOnClickListener(this);
 
         FacebookManager.getInstance().loadLoginInfo(new FacebookManager.OnLoadInfoCallBack() {
             @Override
@@ -105,7 +109,16 @@ public class InfoActivitiy extends AppCompatActivity implements View.OnClickList
             case R.id.btn_share_gallery_img:
                 shareGalleryImage();
                 break;
+            case R.id.btn_share_video:
+                shareVideo();
+                break;
         }
+    }
+
+    private void shareVideo() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("video/*");
+        startActivityForResult(intent, SELECT_VIDEO);
     }
 
     private void shareGalleryImage() {
@@ -116,7 +129,9 @@ public class InfoActivitiy extends AppCompatActivity implements View.OnClickList
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == SELECT_IMAGE && resultCode == RESULT_OK) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_OK) return;
+        if (requestCode == SELECT_IMAGE) {
             try {
                 InputStream inputStream = getContentResolver().openInputStream(data.getData());
                 Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
@@ -131,8 +146,16 @@ public class InfoActivitiy extends AppCompatActivity implements View.OnClickList
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
+        } else if (requestCode == SELECT_VIDEO) {
+            Uri uri = data.getData();
+            ShareVideo shareVideo = new ShareVideo.Builder()
+                    .setLocalUrl(uri)
+                    .build();
+            ShareVideoContent shareVideoContent = new ShareVideoContent.Builder()
+                    .setVideo(shareVideo)
+                    .build();
+            shareDialog.show(shareVideoContent);
         }
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void shareImage() {
