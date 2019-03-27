@@ -54,7 +54,7 @@ public class IndicatorView extends View implements IUserCustomize {
 
         this.radiusSelected = typedArray.getDimensionPixelSize(R.styleable.IndicatorView_radius_selected, DEFAULT_RADIUS_SELECTED);
         this.radiusUnselected = typedArray.getDimensionPixelSize(R.styleable.IndicatorView_radius_unselected, DEFAULT_RADIUS_UNSELECTED);
-        this.distance = typedArray.getInt(R.styleable.IndicatorView_distance, DEFAULT_DISTANCE);
+        this.distance = typedArray.getDimensionPixelSize(R.styleable.IndicatorView_distance, DEFAULT_DISTANCE);
         this.colorSelected = typedArray.getColor(R.styleable.IndicatorView_color_selected, Color.parseColor("#ffffff"));
         this.colorUnselected = typedArray.getColor(R.styleable.IndicatorView_color_unselected, Color.parseColor("#ffffff"));
 
