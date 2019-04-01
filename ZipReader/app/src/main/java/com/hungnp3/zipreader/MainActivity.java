@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
             while ((entry = stream.getNextEntry()) != null) {
                 File file = new File(DB_PATH + "/" + entry.getName());
                 if (file.exists()) {
+                    stream.closeEntry();
                     continue;
                 }
                 file.createNewFile();
@@ -102,8 +103,9 @@ public class MainActivity extends AppCompatActivity {
                 while ((len = stream.read(buff)) > 0) {
                     output.write(buff, 0, len);
                 }
-
+                stream.closeEntry();
                 output.close();
+
             }
 
             stream.close();
