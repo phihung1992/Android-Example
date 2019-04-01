@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,6 +23,8 @@ import java.util.zip.ZipInputStream;
 public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_ACCESS_EXTERNAL_STORAGE = 0;
     public static final String DB_PATH = Environment.getExternalStorageDirectory().getPath() + "/zipReader";
+
+    private LoadingDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,9 +78,14 @@ public class MainActivity extends AppCompatActivity {
         folder.mkdir();
 
         byte[] buff = new byte[1024];
-
+        showLoading();
         try {
-            InputStream input = getAssets().open("2P1W.zip");
+            // Read from asset
+//            InputStream input = getAssets().open("2P1W.zip");
+            // Read from storage
+            File zipFile = new File(DB_PATH + "/" + "2P1W.zip");
+            InputStream input = new FileInputStream(zipFile);
+
             ZipInputStream stream = new ZipInputStream(input);
 
             ZipEntry entry;
@@ -103,6 +111,8 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             log("Error: " + e.getMessage());
         }
+
+        dismissLoading();
     }
 
     private String longToTime(long time) {
@@ -110,7 +120,25 @@ public class MainActivity extends AppCompatActivity {
         return dateFormat.format(new Date(time));
     }
 
+    private void showLoading() {
+        if (progressDialog == null) {
+            progressDialog = LoadingDialog.newInstance();
+        }
+
+        if (progressDialog.isAdded()) {
+            return;
+        }
+        progressDialog.show(this);
+    }
+
+    private void dismissLoading() {
+        if (progressDialog != null) progressDialog.dismiss();
+    }
+
+
     public void log(String msg) {
         Log.d("MYLOG", msg);
     }
+
+
 }
